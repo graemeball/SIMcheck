@@ -44,6 +44,9 @@ build it, run the following command (.jar file appears in `target/`):
 
     mvn package
 
+Note that the parallel fftj dependency must be copied to the local
+lib/ directory before building (no maven artifact for this is available).
+
 In addition, SIMcheck is also released via Sonatype to ease its use by
 other projects:
 
@@ -68,30 +71,30 @@ Features
 1: Pre-processing, Raw Data Checks
 ----------------------------------
 
-    Check            |        Statistic(s)                 |      Comments
--------------------- | ----------------------------------- | ------------------
- Intensity Profiles  | bleaching, flicker, angle intensity |
- Motion / Illum Var  | None: angle differences colored     |
- Fourier Projections | None: check pattern / spots OK      |
- Modulation Contrast | feature MCNR acceptable?            | Wiener estimate
+|    Check            |        Statistic(s)                 |      Comments   |
+| ------------------- | ----------------------------------- | --------------- |
+| Intensity Profiles  | bleaching, flicker, angle intensity |                 |
+| Motion / Illum Var  | None: angle differences colored     |                 |
+| Fourier Projections | None: check pattern / spots OK      |                 |
+| Modulation Contrast | feature MCNR acceptable?            | Wiener estimate |
 
 2: Post-reconstruction Checks
 -----------------------------
 
-    Check            |        Statistic(s)                 |      Comments
--------------------- | ----------------------------------- | ------------------
- Intensity Histogram | +ve/-ve ratio acceptable?           | top/bottom 0.01%
- SA Mismatch         | stdDev of miniumum vs. mean         | shows OTF mismatch
- Fourier Plots       | None: symmetry+profile OK?          |
- Mod Contrast Map    | None: inspect MCNR of features      | green=saturated
+|    Check            |        Statistic(s)                |      Comments    |
+| ------------------- | ---------------------------------- | ---------------- |
+| Intensity Histogram | +ve/-ve ratio acceptable?          | top/bottom 0.01% |
+| SA Mismatch         | stdDev of miniumum vs. mean        | OTF mismatch     |
+| Fourier Plots       | None: symmetry+profile OK?         |                  |
+| Mod Contrast Map    | None: inspect MCNR of features     | green=saturated  |
 
 3: Calibration Checks
 ---------------------
 
-    Check            |        Statistic(s)                 |      Comments
--------------------- | ----------------------------------- | ------------------
- Illum. Phase Steps  | phase step & range stable?          | +k0, linespacing
- Pattern Focus       | None: check for "zipper" pattern    |
+|    Check            |        Statistic(s)               |      Comments     |
+| ------------------- | --------------------------------- | ----------------- |
+| Illum. Phase Steps  | phase step & range stable?        | +k0, linespacing  |
+| Pattern Focus       | None: check for "zipper" pattern  |                   |
 
 4: Utilities
 ------------
