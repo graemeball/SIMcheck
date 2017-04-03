@@ -32,7 +32,7 @@ Manual install
 
 The jar file for the latest release can also be
 [downloaded manually](http://downloads.micron.ox.ac.uk/fiji_update/SIMcheck/plugins/)
-for cases where the IMageJ updater is not available.  Older versions of
+for cases where the ImageJ updater is not available.  Older versions of
 SIMcheck can be obtained by navigating the
 [SIMcheck update site](http://downloads.micron.ox.ac.uk/fiji_update/SIMcheck/).
 
@@ -119,12 +119,13 @@ PROJECT STRUCTURE
 - target/ - output `SIMcheck_.jar` file
 - target/classes/ - build output .class files
 - target/test-classes/ - classes produced by tests
+- lib/ - local dependencies not available via maven (i.e. parallel FFTJ)
 
 
 Style Notes (1.0)
 ===========
 
-* no run-time dependencies other than ImageJ1
+* no run-time dependencies other than ImageJ1 (Parallel FFTJ optional)
 * simple, modular structure - each check is a standalone plugin
 * plugin exec methods take input images and return ResultSet
   (no GUI calls within exec when easily avoidable)
