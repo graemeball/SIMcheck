@@ -139,7 +139,6 @@ TODO
 * 1.2: post-release updates, bugfixes & refactoring
 
     - MCN: report per. angle MCNR & warn about saturated pixels
-    - Rec Fourier & Stack FFT utility: tidy options, use RadioButtons
     - si2wf: add option to select 1 angle
     - raw FPJ: add target overlay? (hide by default)
     - progress bar for FPJ plugin (& others?)
