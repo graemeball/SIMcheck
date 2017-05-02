@@ -44,6 +44,7 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
     public int phases = 5;
     public int angles = 3;
     public double zwin = 9;  // Z window that affects reconstruction of a slice
+    public double background = 0;  // background / intensity offset
     
     @Override
     public void run(String arg) {
@@ -52,11 +53,13 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
         gd.addMessage("Requires raw SI data in OMX (CPZAT) order.");
         gd.addNumericField("Angles", angles, 0);
         gd.addNumericField("Phases", phases, 0);
+        gd.addNumericField("Background", background, 0);
         gd.showDialog();
         if (gd.wasCanceled()) return;
         if (gd.wasOKed()) {
             angles = (int)gd.getNextNumber();
             phases = (int)gd.getNextNumber();
+            background = (double)gd.getNextNumber();
         }
         if (!I1l.stackDivisibleBy(imp, phases * angles)) {
             IJ.showMessage(name, 
@@ -112,6 +115,9 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
                 sliceMeanMax = sliceMean;
             }
         }
+        // correct min and max of mean slice intensities for background
+        sliceMeanMin -= background;
+        sliceMeanMax -= background;
         sliceMeanMax = sliceMeanMax * (double)1.1;  // show 10% above max slice
         plot.setLimits((double)1, (double)totalPlanes 
                 / nc, sliceMeanMin, sliceMeanMax);
@@ -127,7 +133,7 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
                 ImageProcessor ip = stack.getProcessor(plane);
                 ImageStatistics stats = ImageStatistics.getStatistics(
                 		ip, moptions, cal);
-                float planeMean = (float)stats.mean;
+                float planeMean = (float)(stats.mean - background);
                 avIntensities[pzat-1] = planeMean;
                 normIntensities[channel - 1][pzat-1] = planeMean;
             }
