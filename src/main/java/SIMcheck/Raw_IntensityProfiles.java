@@ -266,6 +266,7 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
         resultStack.addSlice(impPlot2.getProcessor());
         ImagePlus impResult = new ImagePlus(impPlot1.getTitle(), resultStack);
         results.addImp(shortInfo, impResult);
+        results.addInfo("Background offset", "" + background);
         results.addInfo("How to interpret",
                 "total intensity variation > ~50% over the 9-z-window used to"
                 + " reconstruct each z-section may cause artifacts (threshold"
