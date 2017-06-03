@@ -104,11 +104,19 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
         // assess intensities for plot scaling
         double sliceMeanMin = 0;
         double sliceMeanMax = 0;  // max of means for each slice
+        double stackMin = 0;  // default, should be overwritten
         for (int slice = 1; slice <= stack.getSize(); slice++) {
             ImageProcessor ip = stack.getProcessor(slice);
             ImageStatistics stats = ImageStatistics.getStatistics(
             		ip, moptions, cal);
             double sliceMean = stats.mean;
+            double sliceMin = stats.min;
+            if (slice == 1) {
+                stackMin = sliceMin;
+            }
+            if (sliceMin < stackMin) {
+                stackMin = sliceMin;
+            }
             if (sliceMean < sliceMeanMin) {
                 sliceMeanMin = sliceMean;
             }
@@ -116,8 +124,10 @@ public class Raw_IntensityProfiles implements PlugIn, Executable {
                 sliceMeanMax = sliceMean;
             }
         }
-        // TODO 1: '-1' stack min auto-offset
-        // TODO 2: cutoff intensities at zero after subtracting offset
+        if (offset == -1) {
+            offset = stackMin;
+        }
+        // TODO: cutoff intensities at zero after subtracting offset
         // correct min and max of mean slice intensities for camera offset
         sliceMeanMin -= offset;
         sliceMeanMax -= offset;
