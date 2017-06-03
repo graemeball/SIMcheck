@@ -17,6 +17,8 @@ class RadialProfile implements PlugIn {
 
     // parameter fields
     public int nBins=100;
+    public double plotYmin = 0.0d; 
+    public double plotYmax = 40.0d; 
 
     // private fields
     private ImagePlus imp;
@@ -101,6 +103,9 @@ class RadialProfile implements PlugIn {
         }
         plot = new Plot("Radial Profile Plot", "Radius ["+ units +"]", 
                 this.yAxisLabel, Accumulator[0], Accumulator[1]);
+        double plotXmin = (double)Accumulator[0][0];
+        double plotXmax = (double)Accumulator[0][nBins - 1];
+        plot.setLimits(plotXmin, plotXmax, plotYmin, plotYmax);
         ImagePlus impPlot = plot.getImagePlus();
         I1l.drawPlotTitle(impPlot, "FFT radial profile plot");
         return impPlot;
